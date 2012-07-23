@@ -1,0 +1,10 @@
+src_dir: lib 
+
+src_files:
+  - vendor/*.js
+  - underscore.date.js
+
+spec_dir: spec/javascripts
+
+spec_files:
+  - underscore.date_spec.js
