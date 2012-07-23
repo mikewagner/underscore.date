@@ -20,7 +20,7 @@ _date =
       milliseconds_to_advance += @_days_in_milliseconds(options.weeks * 7)
 
 
-    return new Date(now.valueOf() + milliseconds_to_advance)
+    new Date(now.valueOf() + milliseconds_to_advance)
     
 
 
@@ -36,9 +36,9 @@ _date =
 
 if exports?
   if module? and module.exports
-    module.exports = _time
-  exports._time = _time
+    module.exports = _date
+  exports._date = _date
 
 root._ = root._ ? {}
-root._.time = _time
+root._.date = _date
 
