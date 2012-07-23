@@ -1,6 +1,9 @@
 (function() {
 
   describe('underscore.date', function() {
+    beforeEach(function() {
+      return spyOn(_.date, 'now').andReturn(new Date('2012', '0', '1', '12', '00', '00'));
+    });
     describe('month', function() {
       return it('should return the month for the date', function() {
         var date;
@@ -23,35 +26,76 @@
       });
     });
     return describe('advance', function() {
-      it('should return a date in the future for specified number of days', function() {
-        var date;
-        spyOn(_.date, 'now').andReturn(new Date(2012, 0, 1));
-        date = _.date.advance({
-          days: 10
+      describe('seconds', function() {
+        return it('should return a new date in the future', function() {
+          var date;
+          date = _.date.advance({
+            seconds: 3600 * 3
+          });
+          expect(_.date.hour(date)).toEqual(15);
+          expect(_.date.minutes(date)).toEqual(0);
+          return expect(_.date.seconds(date)).toEqual(0);
         });
-        expect(_.date.month(date)).toEqual(1);
-        expect(_.date.day(date)).toEqual(11);
-        return expect(_.date.year(date)).toEqual(2012);
       });
-      it('should return a date in the future for specified number of weeks', function() {
-        var date;
-        spyOn(_.date, 'now').andReturn(new Date(2012, 1, 1));
-        date = _.date.advance({
-          weeks: 6
+      describe('days', function() {
+        it('should return a new date in the future', function() {
+          var date;
+          date = _.date.advance({
+            days: 10
+          });
+          expect(_.date.month(date)).toEqual(1);
+          expect(_.date.day(date)).toEqual(11);
+          return expect(_.date.year(date)).toEqual(2012);
         });
-        expect(_.date.month(date)).toEqual(3);
-        expect(_.date.day(date)).toEqual(14);
-        return expect(_.date.year(date)).toEqual(2012);
+        return it('should return a date in the past', function() {
+          var date;
+          date = _.date.advance({
+            days: -22
+          });
+          expect(_.date.month(date)).toEqual(12);
+          expect(_.date.day(date)).toEqual(10);
+          return expect(_.date.year(date)).toEqual(2011);
+        });
       });
-      return it('should return a date in the future for specified number of years', function() {
-        var date;
-        spyOn(_.date, 'now').andReturn(new Date(2012, 0, 1));
-        date = _.date.advance({
-          years: 2
+      describe('weeks', function() {
+        it('should return a date in the future for specified number of weeks', function() {
+          var date;
+          date = _.date.advance({
+            weeks: 6
+          });
+          expect(_.date.month(date)).toEqual(2);
+          expect(_.date.day(date)).toEqual(12);
+          return expect(_.date.year(date)).toEqual(2012);
         });
-        expect(_.date.month(date)).toEqual(1);
-        expect(_.date.day(date)).toEqual(1);
-        return expect(_.date.year(date)).toEqual(2014);
+        return it('should return a date in the past for specified number of weeks', function() {
+          var date;
+          date = _.date.advance({
+            weeks: -32
+          });
+          expect(_.date.month(date)).toEqual(5);
+          expect(_.date.day(date)).toEqual(22);
+          return expect(_.date.year(date)).toEqual(2011);
+        });
+      });
+      return describe('years', function() {
+        it('should return a date in the future for specified number of years', function() {
+          var date;
+          date = _.date.advance({
+            years: 2
+          });
+          expect(_.date.month(date)).toEqual(1);
+          expect(_.date.day(date)).toEqual(1);
+          return expect(_.date.year(date)).toEqual(2014);
+        });
+        return it('should return a date in the past for specified number of years', function() {
+          var date;
+          date = _.date.advance({
+            years: -4
+          });
+          expect(_.date.month(date)).toEqual(1);
+          expect(_.date.day(date)).toEqual(1);
+          return expect(_.date.year(date)).toEqual(2008);
+        });
       });
     });
   });
