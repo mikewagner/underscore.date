@@ -4,13 +4,23 @@ common_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 months = ['January', 'February', 'March', 'April', 'May',
            'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
+parse = Date.parse
 
-slice = Array.prototype.slice
 
 _date =
   
   now: ->
     new Date()
+
+  parse: (string = null) ->
+    return @now() unless string? and string != ''
+    new Date( parse(string) )
+
+  yesterday: ->
+    @advance( days: -1 )
+
+  tomorrow: ->
+    @advance( days: 1 )
 
   month: (date) ->
     date.getMonth() + 1
@@ -80,8 +90,32 @@ _date =
     @advance( years: -years )
 
   # returns new Date representing the date a number of years in the future
-  years_since: (years)
+  years_since: (years) ->
     @advance( years: years )
+
+  # return true if the Date is the current date
+  isToday: (date) ->
+    today = @now()
+    @year(date)  == @year(today)  and
+    @month(date) == @month(today) and
+    @day(date)   == @day(today)
+
+  # returns true if the Date is in the past
+  isPast: (date) ->
+    today = @now()
+    return true if @year(date)  < @year(today)
+    return true if @month(date) < @month(today)
+    return true if @day(date)   < @day(today)
+    false
+
+  # returns true if the Date is in the future
+  isFuture: (date) ->
+    today = @now()
+    return true if @year(date)  > @year(today)
+    return true if @month(date) > @month(today)
+    return true if @day(date)   > @day(today)
+    false
+
 
   _days_in_milliseconds: (days) ->
     days * 86400000

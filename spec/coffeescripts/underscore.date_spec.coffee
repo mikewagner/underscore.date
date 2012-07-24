@@ -3,6 +3,27 @@ describe 'underscore.date', ->
   beforeEach ->
     spyOn( _.date, 'now' ).andReturn( new Date( '2012', '0', '1', '12', '00', '00' ) )
 
+  describe 'parse', ->
+    
+    it 'should return the current date time if blank/null string', ->
+      expect( _.date.parse() ).toEqual(new Date( '2012', '0', '1', '12', '00', '00' ))
+      expect( _.date.parse('') ).toEqual(new Date( '2012', '0', '1', '12', '00', '00' ))
+
+    it 'should parse date/time string and return date object', ->
+      expect( _.date.parse('1/1/2012 12:00:00').toUTCString() ).toEqual('Sun, 01 Jan 2012 18:00:00 GMT')
+      expect( _.date.parse('1/1/2012').toUTCString() ).toEqual('Sun, 01 Jan 2012 06:00:00 GMT')
+      expect( _.date.parse('1-1-2012').toUTCString() ).toEqual('Sun, 01 Jan 2012 06:00:00 GMT')
+      expect( _.date.parse('2012/1/1').toUTCString() ).toEqual('Sun, 01 Jan 2012 06:00:00 GMT')
+      expect( _.date.parse('2012-1-1').toUTCString() ).toEqual('Sun, 01 Jan 2012 06:00:00 GMT')
+
+
+    it 'should return Invalid Date', ->
+      # missing date values
+      expect( _.date.parse('12:00:00').toUTCString() ).toEqual('Invalid Date')
+      # invalid date values
+      expect( _.date.parse('12/32/2012').toUTCString() ).toEqual('Invalid Date')
+
+
   describe 'month', ->
     
     it 'should return the month for the date', ->
