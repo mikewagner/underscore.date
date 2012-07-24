@@ -9,38 +9,49 @@ parse = Date.parse
 
 _date =
   
+  # returns new Date set at current date/time
   now: ->
     new Date()
 
+  # returns new Date parsed from string
   parse: (string = null) ->
     return @now() unless string? and string != ''
     new Date( parse(string) )
 
+  # returns new Date representing the date 1 day ago
   yesterday: ->
     @advance( days: -1 )
 
+  # returns new Date representing the date 1 day after today
   tomorrow: ->
     @advance( days: 1 )
 
+  # returns the month value from Date
   month: (date) ->
     date.getMonth() + 1
   
+  # returns the day value from Date
   day: (date) ->
     date.getDate()
 
+  # returns the year value from Date
   year: (date) ->
     date.getFullYear()
 
+  # returns the hour
   hour: (date) ->
     date.getHours()
 
+  # returns the minutes
   minutes: (date) ->
     date.getMinutes()
 
+  # returns the seconds
   seconds: (date) ->
     date.getSeconds()
 
-
+  # Adjusts the date for years, weeks, days, and seconds.
+  # The options paramater takes any of the keys: years, weeks, days, or seconds
   advance: (date, options) ->
     new_date = new Date( date.valueOf() )
     milliseconds_to_advance = 0
@@ -115,7 +126,6 @@ _date =
     return true if @month(date) > @month(today)
     return true if @day(date)   > @day(today)
     false
-
 
   _days_in_milliseconds: (days) ->
     days * 86400000
