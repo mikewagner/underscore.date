@@ -41,12 +41,13 @@ _date =
     date.getSeconds()
 
 
-  advance: (options) ->
-    now = @now()
+  advance: (date, options) ->
+    date ?= @now()
+    new_date = new Date( date.valueOf() )
     milliseconds_to_advance = 0
 
     if options.years?
-      now.setYear( @year(now) + options.years )
+      new_date.setYear( @year(date) + options.years )
 
     if options.weeks?
       milliseconds_to_advance += @_days_in_milliseconds(options.weeks * 7)
@@ -57,13 +58,13 @@ _date =
     if options.seconds?
       milliseconds_to_advance += options.seconds * 1000
 
-    new Date(now.valueOf() + milliseconds_to_advance)
+    new Date(new_date.valueOf() + milliseconds_to_advance)
 
   ago: (seconds) ->
-    @advance( seconds: -seconds )
+    @advance( @now(), seconds: -seconds )
 
   since: (seconds) ->
-    @advance( seconds: seconds )
+    @advance( @now(), seconds: seconds )
 
   # alias for since
   in: (seconds) ->
@@ -71,27 +72,27 @@ _date =
 
   # returns new Date representing the date a number of days ago
   days_ago: (days) ->
-    @advance( days: -days )
+    @advance( @now(), days: -days )
   
   # returns new Date representing the date a number of days in the future
   days_since: (days) ->
-    @advance( days: days )
+    @advance( @now(), days: days )
 
   # returns new Date representing the date a number of weeks ago
   weeks_ago: (weeks) ->
-    @advance( weeks: -weeks )
+    @advance( @now(), weeks: -weeks )
   
   # returns new Date representing the date a number of weeks in the future
   weeks_since: (weeks) ->
-    @advance( weeks: weeks )
+    @advance( @now(), weeks: weeks )
 
   # returns new Date representing the date a number of years ago
   years_ago: (years) ->
-    @advance( years: -years )
+    @advance( @now(), years: -years )
 
   # returns new Date representing the date a number of years in the future
   years_since: (years) ->
-    @advance( years: years )
+    @advance( @now(), years: years )
 
   # return true if the Date is the current date
   isToday: (date) ->

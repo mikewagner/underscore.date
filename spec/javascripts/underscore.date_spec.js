@@ -46,7 +46,7 @@
       describe('seconds', function() {
         return it('should return a new date in the future', function() {
           var date;
-          date = _.date.advance({
+          date = _.date.advance(_.date.now(), {
             seconds: 3600 * 3
           });
           expect(_.date.hour(date)).toEqual(15);
@@ -57,7 +57,7 @@
       describe('days', function() {
         it('should return a new date in the future', function() {
           var date;
-          date = _.date.advance({
+          date = _.date.advance(_.date.now(), {
             days: 10
           });
           expect(_.date.month(date)).toEqual(1);
@@ -66,7 +66,7 @@
         });
         return it('should return a date in the past', function() {
           var date;
-          date = _.date.advance({
+          date = _.date.advance(_.date.now(), {
             days: -22
           });
           expect(_.date.month(date)).toEqual(12);
@@ -77,7 +77,7 @@
       describe('weeks', function() {
         it('should return a date in the future for specified number of weeks', function() {
           var date;
-          date = _.date.advance({
+          date = _.date.advance(_.date.now(), {
             weeks: 6
           });
           expect(_.date.month(date)).toEqual(2);
@@ -86,7 +86,7 @@
         });
         return it('should return a date in the past for specified number of weeks', function() {
           var date;
-          date = _.date.advance({
+          date = _.date.advance(_.date.now(), {
             weeks: -32
           });
           expect(_.date.month(date)).toEqual(5);
@@ -97,7 +97,7 @@
       return describe('years', function() {
         it('should return a date in the future for specified number of years', function() {
           var date;
-          date = _.date.advance({
+          date = _.date.advance(_.date.now(), {
             years: 2
           });
           expect(_.date.month(date)).toEqual(1);
@@ -106,7 +106,7 @@
         });
         return it('should return a date in the past for specified number of years', function() {
           var date;
-          date = _.date.advance({
+          date = _.date.advance(_.date.now(), {
             years: -4
           });
           expect(_.date.month(date)).toEqual(1);
