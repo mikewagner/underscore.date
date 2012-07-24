@@ -42,7 +42,6 @@ _date =
 
 
   advance: (date, options) ->
-    date ?= @now()
     new_date = new Date( date.valueOf() )
     milliseconds_to_advance = 0
 
