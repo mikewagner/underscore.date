@@ -21,6 +21,22 @@
         return expect(_.date.parse('12/32/2012').toUTCString()).toEqual('Invalid Date');
       });
     });
+    describe('yesterday', function() {
+      return it('should return date that is 1 day ago', function() {
+        var today, yesterday;
+        today = _.date.now().valueOf();
+        yesterday = _.date.yesterday().valueOf();
+        return expect(today - yesterday).toEqual(86400000);
+      });
+    });
+    describe('tomorrow', function() {
+      return it('should return date that is 1 day after today', function() {
+        var today, tomorrow;
+        today = _.date.now().valueOf();
+        tomorrow = _.date.tomorrow().valueOf();
+        return expect(today - tomorrow).toEqual(-86400000);
+      });
+    });
     describe('month', function() {
       return it('should return the month for the date', function() {
         var date;
@@ -94,7 +110,7 @@
           return expect(_.date.year(date)).toEqual(2011);
         });
       });
-      return describe('years', function() {
+      describe('years', function() {
         it('should return a date in the future for specified number of years', function() {
           var date;
           date = _.date.advance(_.date.now(), {
@@ -112,6 +128,20 @@
           expect(_.date.month(date)).toEqual(1);
           expect(_.date.day(date)).toEqual(1);
           return expect(_.date.year(date)).toEqual(2008);
+        });
+      });
+      describe('ago', function() {
+        return it('should return a date in past for the given number of seconds', function() {
+          expect(_.date.ago(3600).toUTCString()).toEqual('Sun, 01 Jan 2012 17:00:00 GMT');
+          expect(_.date.ago(86400).toUTCString()).toEqual('Sat, 31 Dec 2011 18:00:00 GMT');
+          return expect(_.date.ago(60 * 60 * 24 * 365).toUTCString()).toEqual('Sat, 01 Jan 2011 18:00:00 GMT');
+        });
+      });
+      return describe('since', function() {
+        return it('should return a date in future for the given number of seconds', function() {
+          expect(_.date.since(3600).toUTCString()).toEqual('Sun, 01 Jan 2012 19:00:00 GMT');
+          expect(_.date.since(86400).toUTCString()).toEqual('Mon, 02 Jan 2012 18:00:00 GMT');
+          return expect(_.date.since(60 * 60 * 24 * 365).toUTCString()).toEqual('Mon, 31 Dec 2012 18:00:00 GMT');
         });
       });
     });

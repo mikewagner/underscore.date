@@ -20,11 +20,11 @@ _date =
 
   # returns new Date representing the date 1 day ago
   yesterday: ->
-    @advance( days: -1 )
+    @advance( @now(), days: -1 )
 
   # returns new Date representing the date 1 day after today
   tomorrow: ->
-    @advance( days: 1 )
+    @advance( @now(), days: 1 )
 
   # returns the month value from Date
   month: (date) ->

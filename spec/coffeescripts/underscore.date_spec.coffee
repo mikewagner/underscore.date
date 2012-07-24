@@ -23,6 +23,20 @@ describe 'underscore.date', ->
       # invalid date values
       expect( _.date.parse('12/32/2012').toUTCString() ).toEqual('Invalid Date')
 
+  describe 'yesterday', ->
+
+    it 'should return date that is 1 day ago', ->
+      today     = _.date.now().valueOf()
+      yesterday = _.date.yesterday().valueOf()
+      expect( today - yesterday ).toEqual(86400000)
+
+  describe 'tomorrow', ->
+
+    it 'should return date that is 1 day after today', ->
+      today    = _.date.now().valueOf()
+      tomorrow = _.date.tomorrow().valueOf()
+      expect( today - tomorrow ).toEqual(-86400000)
+
 
   describe 'month', ->
     
@@ -97,7 +111,23 @@ describe 'underscore.date', ->
         expect( _.date.day(date) ).toEqual( 1 )
         expect( _.date.year(date) ).toEqual( 2008 )
 
-       
+    
+    describe 'ago', ->
+
+      it 'should return a date in past for the given number of seconds', ->
+        expect( _.date.ago(3600).toUTCString() ).toEqual('Sun, 01 Jan 2012 17:00:00 GMT')
+        expect( _.date.ago(86400).toUTCString() ).toEqual('Sat, 31 Dec 2011 18:00:00 GMT')
+        expect( _.date.ago(60 * 60 * 24 * 365).toUTCString() ).toEqual('Sat, 01 Jan 2011 18:00:00 GMT')
+
+    describe 'since', ->
+
+      it 'should return a date in future for the given number of seconds', ->
+        expect( _.date.since(3600).toUTCString() ).toEqual('Sun, 01 Jan 2012 19:00:00 GMT')
+        expect( _.date.since(86400).toUTCString() ).toEqual('Mon, 02 Jan 2012 18:00:00 GMT')
+        expect( _.date.since(60 * 60 * 24 * 365).toUTCString() ).toEqual('Mon, 31 Dec 2012 18:00:00 GMT')
+
+
+
 
 
     
