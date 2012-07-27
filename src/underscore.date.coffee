@@ -4,6 +4,9 @@ common_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 months = ['January', 'February', 'March', 'April', 'May',
            'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
+days_of_week      = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+abbr_days_of_week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri']
+
 parse = Date.parse
 
 
@@ -126,6 +129,9 @@ _date =
     return true if @month(date) > @month(today)
     return true if @day(date)   > @day(today)
     false
+
+  day_of_week: (date) ->
+    days_of_week[date.getDay()]
 
   _days_in_milliseconds: (days) ->
     days * 86400000

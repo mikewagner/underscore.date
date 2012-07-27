@@ -137,11 +137,42 @@
           return expect(_.date.ago(60 * 60 * 24 * 365).toUTCString()).toEqual('Sat, 01 Jan 2011 18:00:00 GMT');
         });
       });
-      return describe('since', function() {
+      describe('since', function() {
         return it('should return a date in future for the given number of seconds', function() {
           expect(_.date.since(3600).toUTCString()).toEqual('Sun, 01 Jan 2012 19:00:00 GMT');
           expect(_.date.since(86400).toUTCString()).toEqual('Mon, 02 Jan 2012 18:00:00 GMT');
           return expect(_.date.since(60 * 60 * 24 * 365).toUTCString()).toEqual('Mon, 31 Dec 2012 18:00:00 GMT');
+        });
+      });
+      return describe('day_of_week', function() {
+        return it('should return the name for the day of week for a date', function() {
+          var date;
+          date = _.date.parse('January 1, 2012');
+          expect(_.date.day_of_week(date)).toEqual('Sunday');
+          date = _.date.advance(date, {
+            days: 1
+          });
+          expect(_.date.day_of_week(date)).toEqual('Monday');
+          date = _.date.advance(date, {
+            days: 1
+          });
+          expect(_.date.day_of_week(date)).toEqual('Tuesday');
+          date = _.date.advance(date, {
+            days: 1
+          });
+          expect(_.date.day_of_week(date)).toEqual('Wednesday');
+          date = _.date.advance(date, {
+            days: 1
+          });
+          expect(_.date.day_of_week(date)).toEqual('Thursday');
+          date = _.date.advance(date, {
+            days: 1
+          });
+          expect(_.date.day_of_week(date)).toEqual('Friday');
+          date = _.date.advance(date, {
+            days: 1
+          });
+          return expect(_.date.day_of_week(date)).toEqual('Saturday');
         });
       });
     });

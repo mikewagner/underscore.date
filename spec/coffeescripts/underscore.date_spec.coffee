@@ -128,6 +128,26 @@ describe 'underscore.date', ->
 
 
 
+    describe 'day_of_week', ->
+
+      it 'should return the name for the day of week for a date', ->
+        date = _.date.parse('January 1, 2012')
+        expect( _.date.day_of_week(date) ).toEqual('Sunday')
+        date = _.date.advance( date, days: 1 )
+        expect( _.date.day_of_week(date) ).toEqual('Monday')
+        date = _.date.advance( date, days: 1 )
+        expect( _.date.day_of_week(date) ).toEqual('Tuesday')
+        date = _.date.advance( date, days: 1 )
+        expect( _.date.day_of_week(date) ).toEqual('Wednesday')
+        date = _.date.advance( date, days: 1 )
+        expect( _.date.day_of_week(date) ).toEqual('Thursday')
+        date = _.date.advance( date, days: 1 )
+        expect( _.date.day_of_week(date) ).toEqual('Friday')
+        date = _.date.advance( date, days: 1 )
+        expect( _.date.day_of_week(date) ).toEqual('Saturday')
+
+
+
 
 
     
